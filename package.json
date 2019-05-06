@@ -24,9 +24,9 @@
   },
   "homepage": "https://github.com/gkcity/xiot-core-xcp-node-sample-ts#readme",
   "dependencies": {
-    "xiot-core-message-ts": "0.8.15",
-    "xiot-core-spec-ts": "^0.8.15",
-    "xiot-core-xcp-node-ts": "^0.8.16"
+    "xiot-core-message-ts": "0.9.0",
+    "xiot-core-spec-ts": "^0.9.0",
+    "xiot-core-xcp-node-ts": "^0.9.0"
   },
   "devDependencies": {
     "@types/chai": "^4.1.2",
