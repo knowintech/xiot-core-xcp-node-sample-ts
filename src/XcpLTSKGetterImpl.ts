@@ -1,6 +1,6 @@
 import {Convert} from 'mipher';
-import {XcpLTSKGetter} from 'xiot-core-xcp-node-ts/dist/xiot/core/xcp/XcpLTSKGetter';
-import {KeyPair} from 'xiot-core-xcp-node-ts/dist/xiot/core/xcp/KeyPair';
+import {XcpLTSKGetter} from 'xiot-core-xcp-ts/dist/xiot/core/xcp/XcpLTSKGetter';
+import {KeyPair} from 'xiot-core-xcp-ts/dist/xiot/core/xcp/KeyPair';
 
 export class XcpLTSKGetterImpl implements XcpLTSKGetter {
 

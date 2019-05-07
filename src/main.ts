@@ -1,6 +1,6 @@
-import {XcpClientImpl} from 'xiot-core-xcp-node-ts/dist/xiot/core/xcp/impl/XcpClientImpl';
-import {XcpClientCipherProductImpl} from 'xiot-core-xcp-node-ts/dist/xiot/core/xcp/impl/XcpClientCipherProductImpl';
-import {XcpFrameCodecType} from 'xiot-core-xcp-node-ts/dist/xiot/core/xcp/common/XcpFrameCodecType';
+import {XcpClientImpl} from 'xiot-core-xcp-node-ts/dist/xiot/core/xcp/node/impl/XcpClientImpl';
+import {XcpClientCipherProductImpl} from 'xiot-core-xcp-ts/dist/xiot/core/xcp/impl/XcpClientCipherProductImpl';
+import {XcpFrameCodecType} from 'xiot-core-xcp-ts/dist/xiot/core/xcp/common/XcpFrameCodecType';
 import {XcpLTSKGetterImpl} from './XcpLTSKGetterImpl';
 import {Convert} from 'mipher';
 import {GET_PROPERTIES_METHOD, QueryGetProperties} from 'xiot-core-message-ts/dist/xiot/core/message/typedef/iq/basic/GetProperties';
