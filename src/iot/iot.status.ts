@@ -1,5 +1,5 @@
 
-export enum SimulatorStatus {
+export enum IotStatus {
   UNINITIALIZED = 'uninitialized',
   INITIALIZING = 'initializing',
   INITIALIZED = 'initialized',

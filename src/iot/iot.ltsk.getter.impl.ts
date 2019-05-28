@@ -1,8 +1,7 @@
 import {Convert} from 'mipher';
-import {XcpLTSKGetter} from 'xiot-core-xcp-ts/dist/xiot/core/xcp/XcpLTSKGetter';
-import {KeyPair} from 'xiot-core-xcp-ts/dist/xiot/core/xcp/KeyPair';
+import {XcpLTSKGetter, KeyPair} from 'xiot-core-xcp-ts';
 
-export class XcpLTSKGetterImpl implements XcpLTSKGetter {
+export class IotLtskGetterImpl implements XcpLTSKGetter {
 
   private k: KeyPair;
 
