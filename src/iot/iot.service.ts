@@ -21,7 +21,6 @@ import {
 import {
   OperationStatus,
   DeviceCodec,
-  DeviceOperable,
   PropertyOperation,
   EventOperation,
   PID,
@@ -39,7 +38,6 @@ import {invokeAction} from '../device/on.action.invoke';
 
 export class IotService {
 
-  // device: DeviceOperable;
   status: IotStatus = IotStatus.UNINITIALIZED;
 
   private client: XcpClient;
@@ -130,130 +128,6 @@ export class IotService {
           }
         });
   }
-
-  // notifyService(iid: number) {
-  //   const service = this.device.services.get(iid);
-  //   if (service == null) {
-  //     return;
-  //   }
-  //
-  //   const properties = service.getProperties().filter(x => x.access.isNotifiable && x.value.isChanged);
-  //   if (properties == null) {
-  //     return;
-  //   }
-  //
-  //   this.sendPropertiesChanged(service, properties);
-  // }
-  //
-  // notifyProperty(siid: number, piid: number) {
-  //   const service = this.device.services.get(siid);
-  //   if (service == null) {
-  //     return;
-  //   }
-  //
-  //   const property = service.properties.get(piid);
-  //   if (property == null) {
-  //     return;
-  //   }
-  //
-  //   const properties = [property];
-  //
-  //   this.sendPropertiesChanged(service, properties);
-  // }
-  //
-  // sendEvent(siid: number, eiid: number) {
-  //   const service = this.device.services.get(siid);
-  //   if (service == null) {
-  //     return;
-  //   }
-  //
-  //   const event = service.events.get(eiid);
-  //   if (event == null) {
-  //     return;
-  //   }
-  //
-  //   const params: Argument[] = event.getArguments();
-  //   params.forEach(x => {
-  //     const p = service.properties.get(x.piid);
-  //     if (p) {
-  //       x.values = [p.value.currentValue.getObjectValue()];
-  //     }
-  //   });
-  //   const operation = new EventOperation();
-  //   operation.eid = new EID(this.client.getDeviceId(), siid, eiid);
-  //   operation.setArguments(params);
-  //
-  //   this.client.sendQuery(new QueryEventOccurred(this.client.getNextId(), operation))
-  //       .then(result => {
-  //         if (result instanceof ResultPropertiesChanged) {
-  //           result.properties.forEach(x => {
-  //             if (x.pid) {
-  //               console.log(x.pid.toString() + ' => status: ' + x.status);
-  //               const property = service.properties.get(x.pid.iid);
-  //               if (property) {
-  //                 property.result.status = x.status;
-  //                 property.result.description = x.description;
-  //               }
-  //             }
-  //           });
-  //         }
-  //       })
-  //       .catch(e => {
-  //         console.log('send properties changed failed: ', e);
-  //       });
-  // }
-  //
-  // private sendPropertiesChanged(service: Service, properties: Property[]) {
-  //   const operations = properties.map(x => {
-  //     const o = new PropertyOperation();
-  //     o.pid = new PID(this.client.getDeviceId(), service.iid, x.iid);
-  //     o.value = x.value.currentValue.getObjectValue();
-  //     return o;
-  //   });
-  //
-  //   if (operations.length === 0) {
-  //     return;
-  //   }
-  //
-  //   this.client.sendQuery(new QueryPropertiesChanged(this.client.getNextId(), '', operations))
-  //       .then(result => {
-  //         if (result instanceof ResultPropertiesChanged) {
-  //           result.properties.forEach(x => {
-  //             if (x.pid) {
-  //               console.log(x.pid.toString() + ' => status: ' + x.status);
-  //               const property = service.properties.get(x.pid.iid);
-  //               if (property) {
-  //                 property.result.status = x.status;
-  //                 property.result.description = x.description;
-  //                 if (property.result.status == OperationStatus.COMPLETED) {
-  //                   property.value.isChanged = false;
-  //                 }
-  //               }
-  //             }
-  //           });
-  //         }
-  //       })
-  //       .catch(e => {
-  //         console.log('send properties changed failed: ', e);
-  //       });
-  // }
-
-  // private loadInstance(productId: number, productVersion: number) {
-  //   console.log('loadInstance: ', productId + '/' + productVersion);
-  //   this.http.get('/instance/product/' + productId + '/' + productVersion)
-  //       .subscribe((res: any) => {
-  //         console.log('loadInstance: ', res);
-  //         if (res['msg'] === 'ok') {
-  //           const data = res['data'];
-  //           this.device = DeviceOperableCodec.decode(data['content']);
-  //           this.status = IotStatus.INITIALIZED;
-  //           this.status = IotStatus.DISCONNECTED;
-  //         } else {
-  //           this.status = IotStatus.INITIALIZE_FAILED;
-  //           console.error('loadInstance error: ' + res['description']);
-  //         }
-  //       });
-  // }
 
   private getProperties(query: IQQuery): void {
     if (query instanceof QueryGetProperties) {
