@@ -4,17 +4,18 @@ import {IotService} from './iot/iot.service';
  * init device information
  */
 const serialNumber = 'abc';
-const productId = 16;
+const productId = 30;
 const productVersion = 1;
-const deviceLTPK = 'VH8lCVErI4MIJsOaze5QhyWa2hhpp7I8L5gdToxUeeE=';
-const deviceLTSK = 'uwh6DtyfcBqs/TLyNkTHXg8yl56rq09943KoyfxltAw=';
+const deviceType = 'urn:homekit-spec:device:switch:00000008:seed:switch2:1';
+const deviceLTPK = 'CQRl5z815XMKJgk4PmWTs8GFXAI+PI2N0YXzZuf7yc8=';
+const deviceLTSK = 'qVFb/qMWt4Vx5pEkNr7TMfgK8FmG0ClWnXOLVswryQw=';
 const serverKey = '/8meBcfecxNl7pMIO0Zxbhx70A4DSGio7C2H7VzZLB8=';
 
 /**
  * init iot service
  */
 console.log('initialize iot.service ...');
-const iot = new IotService(serialNumber, productId, productVersion, deviceLTPK, deviceLTSK, serverKey);
+const iot = new IotService(serialNumber, productId, deviceType, deviceLTPK, deviceLTSK, serverKey);
 
 /**
  * connect to service

@@ -1,5 +1,4 @@
-import {Convert} from 'mipher';
-import {XcpLTSKGetter, KeyPair} from 'xiot-core-xcp-ts';
+import {XcpLTSKGetter, KeyPair, Base642Bin} from 'xiot-core-xcp-ts';
 
 export class IotLtskGetterImpl implements XcpLTSKGetter {
 
@@ -7,7 +6,7 @@ export class IotLtskGetterImpl implements XcpLTSKGetter {
 
   constructor(private pk: string,
               private sk: string) {
-    this.k = new KeyPair(Convert.base642bin(pk), Convert.base642bin(sk));
+    this.k = new KeyPair(Base642Bin(pk), Base642Bin(sk));
   }
 
   getDeviceKeypair(deviceId: string): KeyPair {
@@ -15,6 +14,10 @@ export class IotLtskGetterImpl implements XcpLTSKGetter {
   }
 
   getProductKeyPair(productId: number, productVersion: number): KeyPair {
+    return this.k;
+  }
+
+  getTypeKeyPair(deviceType: string): KeyPair {
     return this.k;
   }
 }

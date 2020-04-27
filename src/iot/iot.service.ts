@@ -1,23 +1,24 @@
 import {IotLtskGetterImpl} from './iot.ltsk.getter.impl';
-import {Convert} from 'mipher';
-import {XcpFrameCodecType, XcpClientCipherProductImpl, XcpClient} from 'xiot-core-xcp-ts';
-import {
-  QueryGetProperties,
-  QuerySetProperties,
-  QueryInvokeAction,
-  QueryPing,
+import {XcpFrameCodecType,
+  XcpClientCipherProductImpl,
+  XcpClient,
+  Base642Bin,
   GET_PROPERTIES_METHOD,
   SET_PROPERTIES_METHOD,
   INVOKE_ACTION_METHOD,
-  QueryPropertiesChanged,
-  ResultPropertiesChanged,
-  QueryEventOccurred,
+  IQQuery,
   QueryGetAccessKey,
   ResultGetAccessKey,
   QuerySetAccessKey,
   ResultSetAccessKey,
-  IQQuery,
-} from 'xiot-core-message-ts';
+  QuerySetProperties,
+  ResultSetProperties,
+  QueryGetProperties,
+  ResultGetProperties,
+  QueryInvokeAction,
+  QueryPing
+} from 'xiot-core-xcp-ts';
+
 import {
   OperationStatus,
   DeviceCodec,
@@ -49,7 +50,7 @@ export class IotService {
 
   constructor(serialNumber: string,
               productId: number,
-              productVersion: number,
+              deviceType: string,
               deviceLTPK: string,
               deviceLTSK: string,
               serviceKey: string) {
@@ -61,11 +62,12 @@ export class IotService {
     // }
 
     this.status = IotStatus.INITIALIZING;
-    const serverLTPK = Convert.base642bin(serviceKey);
+    // const serverLTPK = Convert.base642bin(serviceKey);
+    const serverLTPK = Base642Bin(serviceKey);
     const getter = new IotLtskGetterImpl(deviceLTPK, deviceLTSK);
-    const cipher = new XcpClientCipherProductImpl(productId, productVersion, getter, serverLTPK);
+    const cipher = new XcpClientCipherProductImpl(deviceType, getter, serverLTPK);
     const codec = XcpFrameCodecType.NOT_CRYPT;
-    this.client = new XcpClientImpl(serialNumber, productId, productVersion, cipher, codec);
+    this.client = new XcpClientImpl(serialNumber, productId, deviceType, cipher, codec);
     this.client.addQueryHandler(GET_PROPERTIES_METHOD, (query) => this.getProperties(query));
     this.client.addQueryHandler(SET_PROPERTIES_METHOD, (query) => this.setProperties(query));
     this.client.addQueryHandler(INVOKE_ACTION_METHOD, (query) => this.invokeAction(query));
