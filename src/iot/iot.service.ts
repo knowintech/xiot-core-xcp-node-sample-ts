@@ -5,7 +5,7 @@ import {XcpFrameCodecType,
   Base642Bin,
   GET_PROPERTIES_METHOD,
   SET_PROPERTIES_METHOD,
-  INVOKE_ACTION_METHOD,
+  INVOKE_ACTIONS_METHOD,
   IQQuery,
   QueryGetAccessKey,
   ResultGetAccessKey,
@@ -15,7 +15,7 @@ import {XcpFrameCodecType,
   ResultSetProperties,
   QueryGetProperties,
   ResultGetProperties,
-  QueryInvokeAction,
+  QueryInvokeActions,
   QueryPing
 } from 'xiot-core-xcp-ts';
 
@@ -35,7 +35,7 @@ import {IotStatus} from './iot.status';
 import {XcpClientImpl} from 'xiot-core-xcp-node-ts/dist/xiot/core/xcp/node/impl/XcpClientImpl';
 import {getProperty} from '../device/on.property.get';
 import {setProperty} from '../device/on.property.set';
-import {invokeAction} from '../device/on.action.invoke';
+import {invokeActions} from '../device/on.action.invoke';
 
 export class IotService {
 
@@ -70,7 +70,7 @@ export class IotService {
     this.client = new XcpClientImpl(serialNumber, productId, deviceType, cipher, codec);
     this.client.addQueryHandler(GET_PROPERTIES_METHOD, (query) => this.getProperties(query));
     this.client.addQueryHandler(SET_PROPERTIES_METHOD, (query) => this.setProperties(query));
-    this.client.addQueryHandler(INVOKE_ACTION_METHOD, (query) => this.invokeAction(query));
+    this.client.addQueryHandler(INVOKE_ACTIONS_METHOD, (query) => this.invokeActions(query));
     this.status = IotStatus.INITIALIZED;
     // this.loadInstance(productId, productVersion);
   }
@@ -107,7 +107,7 @@ export class IotService {
   }
 
   getAccessKey(): Promise<string> {
-    return this.client.sendQuery(new QueryGetAccessKey(this.client.getNextId()))
+    return this.client.sendQuery(new QueryGetAccessKey(this.client.getNextStanzaId()))
         .then(result => {
           if (result instanceof ResultGetAccessKey) {
             return result.key;
@@ -120,7 +120,7 @@ export class IotService {
 
   resetAccessKey(): Promise<string> {
     const key = 'this a demo key';
-    return this.client.sendQuery(new QuerySetAccessKey(this.client.getNextId(), key))
+    return this.client.sendQuery(new QuerySetAccessKey(this.client.getNextStanzaId(), key))
         .then(result => {
           if (result instanceof ResultSetAccessKey) {
             return key;
@@ -147,17 +147,17 @@ export class IotService {
       // this.device.tryWrite(query.properties, true);
       // this.client.sendResult(query.result());
       query.properties.forEach(x => setProperty(x));
-      this.client.sendResult(query.result());
+      this.client.sendResult(query.result(query.properties));
     } else {
       this.client.sendError(query.error(OperationStatus.UNDEFINED, 'invalid query'));
     }
   }
 
-  private invokeAction(query: IQQuery): void {
-    if (query instanceof QueryInvokeAction) {
+  private invokeActions(query: IQQuery): void {
+    if (query instanceof QueryInvokeActions) {
       // this.device.tryInvoke(query.operation);
       // this.client.sendResult(query);
-      invokeAction(query.operation);
+      invokeActions(query.actions);
       this.client.sendResult(query);
     } else {
       this.client.sendError(query.error(OperationStatus.UNDEFINED, 'invalid query'));
@@ -166,7 +166,7 @@ export class IotService {
 
   private doKeepalive(): void {
     this.checkClient();
-    this.client.sendQuery(new QueryPing(this.client.getNextId()))
+    this.client.sendQuery(new QueryPing(this.client.getNextStanzaId()))
         .then(x => {
           console.log('recv pong: ', x.id);
         })
