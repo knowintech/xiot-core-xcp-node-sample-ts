@@ -1,4 +1,6 @@
 import {IotService} from './iot/iot.service';
+import {Md5} from 'ts-md5';
+const qrcode = require('qrcode-terminal');
 
 /**
  * init device information
@@ -27,7 +29,16 @@ iot.connect(host, port, uri)
     .then(() => {
         console.log('connect ok');
         iot.getAccessKey().then(key => {
-            console.log('getAccessKey: ', key);
+            console.log('DID: ', serialNumber + '@' + productId);
+            console.log('AccessKey: ', key);
+
+            const code = {
+                id: serialNumber + '@' + productId,
+                key: Md5.hashStr(key),
+            };
+
+            console.log('code: ', code);
+            qrcode.generate(JSON.stringify(code));
         });
     })
     .catch(e => console.log('connect failed!'));
