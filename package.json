@@ -1,6 +1,6 @@
 {
   "name": "xiot-core-xcp-node-sample-ts",
-  "version": "0.38.0",
+  "version": "0.40.0",
   "description": "XCP Sample",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -24,7 +24,7 @@
   },
   "homepage": "https://github.com/gkcity/xiot-core-xcp-node-sample-ts#readme",
   "dependencies": {
-    "xiot-core-xcp-node-ts": "^0.38.0",
+    "xiot-core-xcp-node-ts": "^0.40.0",
     "ts-md5": "^1.2.6",
     "qrcode-terminal": "^0.12.0"
   },

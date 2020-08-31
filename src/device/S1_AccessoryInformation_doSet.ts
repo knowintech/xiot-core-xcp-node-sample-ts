@@ -1,4 +1,4 @@
-import {PropertyOperation, OperationStatus} from 'xiot-core-spec-ts';
+import {PropertyOperation, Status} from 'xiot-core-spec-ts';
 
 function P10_On_doSet(o: PropertyOperation) {
     console.log('P10_On_doSet: ', o.value);
@@ -19,11 +19,11 @@ export function S1_AccessoryInformation_doSet(o: PropertyOperation) {
         case 6:
         case 7:
         case 8:
-            o.status = OperationStatus.PROPERTY_CANNOT_WRITE;
+            o.status = Status.PROPERTY_CANNOT_WRITE;
             break;
 
         default:
-            o.status = OperationStatus.PROPERTY_NOT_FOUND;
+            o.status = Status.PROPERTY_NOT_FOUND;
             break;
     }
 }

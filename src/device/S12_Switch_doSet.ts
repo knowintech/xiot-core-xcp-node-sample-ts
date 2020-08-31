@@ -1,4 +1,4 @@
-import {PropertyOperation, OperationStatus} from 'xiot-core-spec-ts';
+import {PropertyOperation, Status} from 'xiot-core-spec-ts';
 
 function P13_On_doSet(o: PropertyOperation) {
     console.log('P13_On_doSet: ', o.value);
@@ -15,7 +15,7 @@ export function S12_Switch_doSet(o: PropertyOperation) {
             break;
 
         default:
-            o.status = OperationStatus.PROPERTY_NOT_FOUND;
+            o.status = Status.PROPERTY_NOT_FOUND;
             break;
     }
 }

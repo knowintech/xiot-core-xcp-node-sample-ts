@@ -1,4 +1,4 @@
-import {PropertyOperation, OperationStatus} from 'xiot-core-spec-ts';
+import {PropertyOperation, Status} from 'xiot-core-spec-ts';
 
 function P3_Manufacturer_doGet(o: PropertyOperation) {
     o.value = 'ouyang';
@@ -61,7 +61,7 @@ export function S1_AccessoryInformation_doGet(o: PropertyOperation) {
             break;
 
         default:
-            o.status = OperationStatus.PROPERTY_NOT_FOUND;
+            o.status = Status.PROPERTY_NOT_FOUND;
             break;
     }
 }

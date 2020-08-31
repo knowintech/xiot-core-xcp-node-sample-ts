@@ -20,7 +20,7 @@ import {XcpFrameCodecType,
 } from 'xiot-core-xcp-ts';
 
 import {
-  OperationStatus,
+  Status,
   DeviceCodec,
   PropertyOperation,
   EventOperation,
@@ -138,7 +138,7 @@ export class IotService {
       query.properties.forEach(x => getProperty(x));
       this.client.sendResult(query.result());
     } else {
-      this.client.sendError(query.error(OperationStatus.UNDEFINED, 'invalid query'));
+      this.client.sendError(query.error(Status.UNDEFINED, 'invalid query'));
     }
   }
 
@@ -149,7 +149,7 @@ export class IotService {
       query.properties.forEach(x => setProperty(x));
       this.client.sendResult(query.result(query.properties));
     } else {
-      this.client.sendError(query.error(OperationStatus.UNDEFINED, 'invalid query'));
+      this.client.sendError(query.error(Status.UNDEFINED, 'invalid query'));
     }
   }
 
@@ -160,7 +160,7 @@ export class IotService {
       invokeActions(query.actions);
       this.client.sendResult(query);
     } else {
-      this.client.sendError(query.error(OperationStatus.UNDEFINED, 'invalid query'));
+      this.client.sendError(query.error(Status.UNDEFINED, 'invalid query'));
     }
   }
 
