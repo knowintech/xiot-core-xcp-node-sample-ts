@@ -6,11 +6,11 @@ const qrcode = require('qrcode-terminal');
  * init device information
  */
 const serialNumber = 'abc';
-const productId = 30;
+const productId = 153;
 const productVersion = 1;
-const deviceType = 'urn:homekit-spec:device:switch:00000008:seed:switch2:1';
-const deviceLTPK = 'CQRl5z815XMKJgk4PmWTs8GFXAI+PI2N0YXzZuf7yc8=';
-const deviceLTSK = 'qVFb/qMWt4Vx5pEkNr7TMfgK8FmG0ClWnXOLVswryQw=';
+const deviceType = 'urn:homekit-spec:device:switch:00000008:know:ld01:1';
+const deviceLTPK = 'H4Jakw5bGJxShLHOccomMhkQPkPx70yxnCtAWdCl8mM=';
+const deviceLTSK = 'MC4zMDU5NjQxMDczOTUwMTYzNA==';
 const serverKey = '/8meBcfecxNl7pMIO0Zxbhx70A4DSGio7C2H7VzZLB8=';
 
 /**
@@ -22,7 +22,7 @@ const iot = new IotService(serialNumber, productId, deviceType, deviceLTPK, devi
 /**
  * connect to service
  */
-const host = 'accesspoint.geekool.cn';
+const host = 'st-iot-ap-2.knowin.com';
 const port = 80;
 const uri = '/endpoint';
 iot.connect(host, port, uri)
@@ -41,7 +41,7 @@ iot.connect(host, port, uri)
             qrcode.generate(JSON.stringify(code));
         });
     })
-    .catch(e => console.log('connect failed!'));
+    .catch(e => console.log('connect failed!', e));
 
 // iot.sendEvent(siid, eiid);
 // iot.notifyProperty(siid, piid);
